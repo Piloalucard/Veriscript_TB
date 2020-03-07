@@ -19,13 +19,12 @@ def leer():
 
 
 
-def escribir():
+def extraer():
     nombre=leer();
     archivo=open(nombre,mode="r",encoding="utf-8");
     nam_module="";
     stauxlist=[];
     stauxlist2=[];
-    
     lineas=[];
     entradas=[];
     salidas=[];
@@ -41,7 +40,13 @@ def escribir():
             staux="";
             staux2="";
             ultimo="";
-            stauxlist=i;
+            if "input[" in i:
+                i=i.replace("input[","input [");
+            if "] " in i:
+                pass;
+            else:
+                i=i.replace("]","] ");
+            stauxlist=i;   
             stauxlist=stauxlist.split(" ");
             for j in stauxlist:
                 if "[" in j:
@@ -59,6 +64,14 @@ def escribir():
             staux="";
             staux2="";
             ultimo="";
+            if "output[" in i:
+                i=i.replace("output[","output [");
+            if "reg[" in i:
+                i=i.replace("reg[","reg [");
+            if "] " in i:
+                pass;
+            else:
+                i=i.replace("]","] ");
             stauxlist=i;
             stauxlist=stauxlist.split(" ");
             for j in stauxlist:
@@ -80,12 +93,81 @@ def escribir():
                 pass;
             else:
                 nam_module=i;
-
+    stauxlist=nam_module.split(" ");
+    for i in stauxlist:
+        if i != "module" and i !=" " and i != "\n" and i !="(":
+            nam_module=i;
+    stauxlist=nam_module.split("(");
+    for i in stauxlist:
+        if i !=" " and i != "\n" and i !="(":
+            nam_module=i;
+    entradas_f=[];
     for i in entradas:
-        print(i);
+        i=i.replace("[","");
+        i=i.replace("\n","");
+        entradas_f.append(i);
+    salidas_f=[];
     for i in salidas:
-        print(i);
+        i=i.replace("[","");
+        i=i.replace("\n","");
+        salidas_f.append(i);
+    
+    escribir(nam_module,entradas_f,salidas_f);
     input();
     
-
-escribir();
+def escribir(nam_module,entradas,salidas):
+    texto="";
+    listaux=[];
+    entradas_bit=[];
+    salidas_bit=[];
+    entradas_f=[];
+    salidas_f=[];
+    aux=0;
+    nombre=nam_module+"_TB_SCRPT.v";
+    archivo=open(nombre,mode="w",encoding="utf-8");
+    archivo.write("//Archivo de TestBench para verilog basico generado por Veriscript_TB ALPHA 0.1\n");
+    archivo.write("`timescale 1ns/1ns\n\n");
+    archivo.write("module "+nam_module+"_TB();\n")
+    for i in salidas:
+        
+        if "0" in i:
+            archivo.write("    wire ["+str(i)+";\n");
+            cont=0;
+            a=int(i[0]);
+            listaux=i.split("]");
+            for j in listaux:   
+                if cont == 1:
+                    salidas_f.append(j);
+                cont=1;
+            salidas_bit.append(a);
+        else:
+            archivo.write("    wire "+str(i)+";\n");
+            a=1;
+            salidas_f.append(i);
+            salidas_bit.append(a);
+    for i in entradas:
+        
+        if "0" in i:
+            archivo.write("    reg ["+str(i)+";\n");
+            cont=0;
+            a=int(i[0]);
+            listaux=i.split("]");
+            for j in listaux:   
+                if cont == 1:
+                    entradas_f.append(j);
+                cont=1;
+            entradas_bit.append(a);
+        else:
+            archivo.write("    reg "+str(i)+";\n");
+            a=1;
+            entradas_f.append(i);
+            entradas_bit.append(a);
+    texto="    "+nam_module+" DUV(";
+    for i in entradas_f:
+        texto=texto+",."+str(i)+"("+str(i)+")";
+    for i in salidas_f:
+        texto=texto+",."+str(i)+"("+str(i)+")";
+    texto=texto+");\n\n"
+    texto=texto.replace(",","",1);
+    archivo.write(texto);
+extraer();
