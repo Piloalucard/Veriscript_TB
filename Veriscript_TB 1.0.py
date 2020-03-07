@@ -170,4 +170,22 @@ def escribir(nam_module,entradas,salidas):
     texto=texto+");\n\n"
     texto=texto.replace(",","",1);
     archivo.write(texto);
+    opc=0;
+    while opc < 1 or opc > 3:
+        try:
+            print("Digita la opcion de como deseas rellenar los input: ");
+            opc=int(input("1.Sin rellenar\n2.Relleno manual\n3.Relleno Automatico: "));
+            if opc==1:
+                archivo.write("    initial begin\n\n");
+                archivo.write("        end\n\n");
+            elif opc==2:
+                pass;
+            elif opc==3:
+                pass;
+            else:
+                print("ERROR, Debe ingresar una de las 3 opciones");
+        except:
+            opc=0;
+            print("ERROR,Debe ingresar un numero entero");
+    archivo.write("endmodule");
 extraer();
