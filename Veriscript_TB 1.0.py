@@ -1,5 +1,5 @@
 #Veriscript_TB BETA 1.0 08/03/2020
-#Gustavo Padilla Valdez INCO
+#Gustavo Padilla Valdez
 from random import randrange
 
 
@@ -208,7 +208,7 @@ def escribir(nam_module,entradas,salidas):
             elif opc==2:
                 archivo.write("    initial begin\n\n");
                 archivo.write("        end\n\n");
-                pass;
+                print("Opcion Aun en desarrollo, Lo sentimos");
             elif opc==3:
                 archivo.write("    initial begin\n\n");
                 err2=1;    
@@ -264,7 +264,8 @@ def tobinary(n):
     return bin(n).replace("0b", ""); 
 
 def main():
+    print("Bienvenido VeriScript!\n");
     extraer();
-    print("\nARCHIVO CREADO CON EXITO! \nPARA DUDAS O ACLARACIONES CONSULTE EL MANUAL DE INSTRUCCIONES\nO MANDE UN CORREO A: gustavo.valdez@alumnos.udg.mx");
+    print("\nARCHIVO CREADO CON EXITO! \nPUEDE VISUALIZAR SU ARCHIVO CON EL MISMO NOMBRE DEL MODULO + _TB_SCRPT");
     input();
 main();

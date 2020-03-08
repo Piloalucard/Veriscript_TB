@@ -1,0 +1,14 @@
+Veriscript_TB BETA 1.0 08/03/2020
+Gustavo Padilla Valdez
+
+Requerimientos:
+	Python 3.7 (O Mayor)
+	Lib/random.py
+	Archivos extension (.v)
+
+Precauciones:
+	0.El script esta diseñado solo para ser utilizado en archivos .v, ser utilizado de otra manera podria generar errores.
+	1.Verificar cumplir con los requerimientos mencionados
+	2.Copiar el Archivo .py a la carpeta donde esta tu modulo (.v)
+	3.Modificar si es necesario el nombre de salida del archivo si lo deseas
+	4.En caso de errores, contactar: gustavo.valdez@alumnos.udg.mx
