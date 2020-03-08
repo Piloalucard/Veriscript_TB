@@ -1,5 +1,7 @@
-#Veriscript_TB ALPHA 0.1 06/03/2020
+#Veriscript_TB BETA 1.0 08/03/2020
 #Gustavo Padilla Valdez INCO
+from random import randrange
+
 
 def leer():
     band=0;
@@ -113,10 +115,10 @@ def extraer():
         salidas_f.append(i);
     
     escribir(nam_module,entradas_f,salidas_f);
-    input();
     
 def escribir(nam_module,entradas,salidas):
     texto="";
+    clock="";
     listaux=[];
     entradas_bit=[];
     salidas_bit=[];
@@ -125,7 +127,7 @@ def escribir(nam_module,entradas,salidas):
     aux=0;
     nombre=nam_module+"_TB_SCRPT.v";
     archivo=open(nombre,mode="w",encoding="utf-8");
-    archivo.write("//Archivo de TestBench para verilog basico generado por Veriscript_TB ALPHA 0.1\n");
+    archivo.write("//Archivo de TestBench para verilog basico generado por Veriscript_TB BETA 1.0\n");
     archivo.write("`timescale 1ns/1ns\n\n");
     archivo.write("module "+nam_module+"_TB();\n")
     for i in salidas:
@@ -145,6 +147,7 @@ def escribir(nam_module,entradas,salidas):
             a=1;
             salidas_f.append(i);
             salidas_bit.append(a);
+    band=0;
     for i in entradas:
         
         if "0" in i:
@@ -158,10 +161,21 @@ def escribir(nam_module,entradas,salidas):
                 cont=1;
             entradas_bit.append(a);
         else:
-            archivo.write("    reg "+str(i)+";\n");
+            texto=i;
+            texto=texto.lower();
+            if band==0:
+                if texto == "clk" or texto == "clock":
+                    clock=i;
+                    band=1;
+                    archivo.write("    reg "+str(i)+"=0;\n");
+                else:
+                    archivo.write("    reg "+str(i)+";\n");
+            else:
+                archivo.write("    reg "+str(i)+";\n");
             a=1;
             entradas_f.append(i);
             entradas_bit.append(a);
+
     texto="    "+nam_module+" DUV(";
     for i in entradas_f:
         texto=texto+",."+str(i)+"("+str(i)+")";
@@ -170,22 +184,87 @@ def escribir(nam_module,entradas,salidas):
     texto=texto+");\n\n"
     texto=texto.replace(",","",1);
     archivo.write(texto);
+  
+    err=1;
+    if band == 1:      
+        while err==1: 
+            try:
+                aux=int(input("Hemos encontrado un input tipo CLOCK\n Porfavor, digite en enteros cada cuanto tiempo lo iteraremos (ns): "));
+                if aux < 1:
+                    print("Elija un numero mayor a 0");
+                else:
+                    err=0;
+            except:
+                print("Digite numero enteros positivos");
+        archivo.write("    always #"+str(aux)+" "+clock+"=!"+clock+";\n\n");
     opc=0;
     while opc < 1 or opc > 3:
         try:
-            print("Digita la opcion de como deseas rellenar los input: ");
+            print("\nDigita la opcion de como deseas rellenar los input: ");
             opc=int(input("1.Sin rellenar\n2.Relleno manual\n3.Relleno Automatico: "));
             if opc==1:
                 archivo.write("    initial begin\n\n");
                 archivo.write("        end\n\n");
             elif opc==2:
+                archivo.write("    initial begin\n\n");
+                archivo.write("        end\n\n");
                 pass;
             elif opc==3:
-                pass;
+                archivo.write("    initial begin\n\n");
+                err2=1;    
+                while err2==1: 
+                    try:
+                        aux=int(input("Cuantos datos aleatorios desea generar en cada variable: "));
+                        if aux < 1:
+                            print("Elija un numero mayor a 0");
+                        else:
+                            err2=0;
+                    except:
+                        print("Digite numero enteros positivos");
+                err2=1;    
+                while err2==1: 
+                    try:
+                        nano=int(input("Cuantos nanosegundos durara cada conjunto de valores: "));
+                        if nano < 1:
+                            print("Elija un numero mayor a 0");
+                        else:
+                            err2=0;
+                    except:
+                        print("Digite numero enteros positivos");
+
+                conttotal=0;
+                while conttotal < aux:
+                    cont=0;
+                    for i in entradas_f:
+                        texto=i.lower();
+                        if texto != "clk" and texto != "CLOCK":
+                            cont2=0;
+                            for j in entradas_bit:
+                                if j > 1:
+                                    j+=1;
+                                if cont == cont2:
+                                    bitaux=2**int(j);
+                                    bitaux=int(randrange(0,bitaux));
+                                    archivo.write("        "+i+"="+str(j)+"'d"+str(bitaux)+";\n");
+                              
+                                cont2+=1;
+                        cont+=1;
+                    archivo.write("        #"+str(nano)+";\n\n");
+                    conttotal+=1;
+                archivo.write("        end\n\n");
             else:
                 print("ERROR, Debe ingresar una de las 3 opciones");
         except:
             opc=0;
             print("ERROR,Debe ingresar un numero entero");
     archivo.write("endmodule");
-extraer();
+    archivo.close();
+
+def tobinary(n):
+    return bin(n).replace("0b", ""); 
+
+def main():
+    extraer();
+    print("\nARCHIVO CREADO CON EXITO! \nPARA DUDAS O ACLARACIONES CONSULTE EL MANUAL DE INSTRUCCIONES\nO MANDE UN CORREO A: gustavo.valdez@alumnos.udg.mx");
+    input();
+main();
