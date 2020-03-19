@@ -5,10 +5,12 @@ Requerimientos:
 	Python 3.7 (O Mayor)
 	Lib/random.py
 	Archivos extension (.v)
+	Lib/easygui
 
 Precauciones:
 	0.El script esta diseñado solo para ser utilizado en archivos .v, ser utilizado de otra manera podria generar errores.
 	1.Verificar cumplir con los requerimientos mencionados
-	2.Copiar el Archivo .py a la carpeta donde esta tu modulo (.v)
-	3.Modificar si es necesario el nombre de salida del archivo si lo deseas
-	4.En caso de errores, contactar: gustavo.valdez@alumnos.udg.mx
+	2.Modificar si es necesario el nombre de salida del archivo si lo deseas
+	3.En caso de errores, contactar: gustavo.valdez@alumnos.udg.mx
+
+EL ARCHIVO SE GENERARA DONDE ESTA EL SCRIPT

@@ -1,20 +1,22 @@
 #Veriscript_TB BETA 1.0 08/03/2020
 #Gustavo Padilla Valdez
 from random import randrange
-
+import easygui
 
 def leer():
     band=0;
+    print("Elige tu archivo .v");
     while band==0:
-        nombre=str(input("Dame el nombre de tu modulo(Con extension .v): "));
+        nombre="";
         try:
-            archivo=open(nombre,mode="r",encoding="utf-8");
-            print("Buena eleccion de archivo");
-            input();
-            archivo.close();
-            band=1;
+            nombre=str(easygui.fileopenbox());
+            if nombre == "None":
+                print("ERROR, abre un archivo");
+            else:
+                print("Buena eleccion de archivo");
+                band=1;
         except:
-            print("Archivo no existente, verifique el nombre");
+            print("ERROR");
             input();
             band=0;
     return nombre;
