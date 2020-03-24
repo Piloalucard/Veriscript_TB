@@ -1,4 +1,4 @@
-#Veriscript_TB BETA 1.0 08/03/2020
+#Veriscript_TB BETA 1.0 24/03/2020
 #Gustavo Padilla Valdez
 from random import randrange
 import easygui
@@ -203,14 +203,74 @@ def escribir(nam_module,entradas,salidas):
     while opc < 1 or opc > 3:
         try:
             print("\nDigita la opcion de como deseas rellenar los input: ");
-            opc=int(input("1.Sin rellenar\n2.Relleno manual\n3.Relleno Automatico: "));
+            opc=int(input("1.Sin rellenar\n2.Relleno iterado\n3.Relleno Automatico: "));
             if opc==1:
                 archivo.write("    initial begin\n\n");
                 archivo.write("        end\n\n");
             elif opc==2:
+                iterar=[];
                 archivo.write("    initial begin\n\n");
+                err2=1;    
+                while err2==1: 
+                    try:
+                        aux=int(input("Las entradas seran iteradas, indique hasta que numero: "));
+                        if aux < 1:
+                            print("Elija un numero mayor a 0");
+                        else:
+                            err2=0;
+                    except:
+                        print("Digite numero enteros positivos");
+                err2=1;    
+                while err2==1: 
+                    try:
+                        nano=int(input("Cuantos nanosegundos durara cada conjunto de valores: "));
+                        if nano < 1:
+                            print("Elija un numero mayor a 0");
+                        else:
+                            err2=0;
+                    except:
+                        print("Digite numero enteros positivos");
+
+                conttotal=0;
+                for i in entradas_f:
+                    err2=1;  
+                    si=2;  
+                    while err2==1: 
+                        try:
+                            texto=i.lower();
+                            if texto != "clk" and texto != "clock":
+                                print(i,end=": ");
+                                si=int(input("¿Esta entrada debe ser iterada? 1=SI  2=NO: "));
+                            
+                            if si < 1 or si > 2:
+                                print("Elija 1 o 2");
+                            else:
+                                err2=0;
+                        except:
+                            print("Digite numeros, porfavor");
+                    iterar.append(str(si));
+                while conttotal <= aux:
+                    cont=0;
+                    for i in entradas_f:
+                        texto=i.lower();
+                        if texto != "clk" and texto != "clock":
+                            cont2=0;
+                            for j in entradas_bit:
+                                cont3=0;
+                                if j > 1:
+                                    j+=1;
+                                if cont == cont2:
+                                    for h in iterar:
+                                        if cont2==cont3:
+                                            if h == "1":
+                                                archivo.write("        "+i+"="+str(j)+"'d"+str(conttotal)+";\n");
+                                        cont3+=1;
+                              
+                                cont2+=1;
+                        cont+=1;
+                    archivo.write("        #"+str(nano)+";\n\n");
+                    conttotal+=1;
                 archivo.write("        end\n\n");
-                print("Opcion Aun en desarrollo, Lo sentimos");
             elif opc==3:
                 archivo.write("    initial begin\n\n");
                 err2=1;    
@@ -239,7 +299,7 @@ def escribir(nam_module,entradas,salidas):
                     cont=0;
                     for i in entradas_f:
                         texto=i.lower();
-                        if texto != "clk" and texto != "CLOCK":
+                        if texto != "clk" and texto != "clock":
                             cont2=0;
                             for j in entradas_bit:
                                 if j > 1:
