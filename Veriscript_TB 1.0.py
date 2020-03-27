@@ -2,16 +2,21 @@
 #Gustavo Padilla Valdez
 from random import randrange
 import easygui
+import time
 
 def leer():
     band=0;
+    err=0;
     print("Elige tu archivo .v");
     while band==0:
         nombre="";
         try:
             nombre=str(easygui.fileopenbox());
             if nombre == "None":
-                print("ERROR, abre un archivo");
+                print("ERROR, No abriste un archivo\nSaliendo...");
+                time.sleep(1.5);
+                band=1;
+                err=1;
             else:
                 print("Buena eleccion de archivo");
                 band=1;
@@ -19,7 +24,10 @@ def leer():
             print("ERROR");
             input();
             band=0;
-    return nombre;
+    if err==1:
+        exit();
+    else:
+        return nombre;
 
 
 
@@ -115,7 +123,6 @@ def extraer():
         i=i.replace("[","");
         i=i.replace("\n","");
         salidas_f.append(i);
-    
     escribir(nam_module,entradas_f,salidas_f);
     
 def escribir(nam_module,entradas,salidas):
@@ -206,7 +213,7 @@ def escribir(nam_module,entradas,salidas):
             opc=int(input("1.Sin rellenar\n2.Relleno iterado\n3.Relleno Automatico: "));
             if opc==1:
                 archivo.write("    initial begin\n\n");
-                archivo.write("        end\n\n");
+        
             elif opc==2:
                 iterar=[];
                 archivo.write("    initial begin\n\n");
@@ -270,7 +277,7 @@ def escribir(nam_module,entradas,salidas):
                         cont+=1;
                     archivo.write("        #"+str(nano)+";\n\n");
                     conttotal+=1;
-                archivo.write("        end\n\n");
+               
             elif opc==3:
                 archivo.write("    initial begin\n\n");
                 err2=1;    
@@ -313,12 +320,13 @@ def escribir(nam_module,entradas,salidas):
                         cont+=1;
                     archivo.write("        #"+str(nano)+";\n\n");
                     conttotal+=1;
-                archivo.write("        end\n\n");
             else:
                 print("ERROR, Debe ingresar una de las 3 opciones");
         except:
             opc=0;
             print("ERROR,Debe ingresar un numero entero");
+    archivo.write("        $stop\n\n");
+    archivo.write("        end\n\n");
     archivo.write("endmodule");
     archivo.close();
 
