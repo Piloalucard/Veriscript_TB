@@ -70,7 +70,39 @@ def crear():
     time.sleep(2.5);                
 
 def tipoj():
-    pass;
+    acep=0;
+    special="";
+    while acep==0:
+        special=str(input("Dame el codigo SPECIAL (6 DIGITOS): "));
+        special=special[:6];
+        special=special.zfill(6);
+        print("¿Este codigo es correcto?: "+special);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+    acep=0;
+    jump="";
+    while acep==0:
+        jump=str(input("Dame la DIRECCION (26 DIGITOS): "));
+        jump=jump[:26];
+        jump=jump.zfill(26);
+        print("¿Este codigo es correcto?: "+jump);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+    regresar=str(special+jump+" ");
+    print("AGREGADO CON EXITO!\n");
+    return regresar;
     
 
 def tipor():
@@ -187,7 +219,80 @@ def tipor():
   
 
 def tipoi():
-    pass;
+    acep=0;
+    special="";
+    while acep==0:
+        special=str(input("Dame el codigo SPECIAL (6 DIGITOS): "));
+        special=special[:6];
+        special=special.zfill(6);
+        print("¿Este codigo es correcto?: "+special);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+
+    acep=0;
+    rs="";
+    while acep==0:
+        aux=-1;
+        while aux==-1:
+            aux=int(input("Dame el Primer SOURCE REGISTER RS (DIRECCION MAXIMO 31): "));
+            if(aux>31 or aux<0):
+                aux=-1;
+                print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
+        rs=str(tobinary(aux));
+        rs=rs.zfill(5);
+        print("¿Este codigo es correcto?: "+rs);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+    acep=0;
+    rt="";
+    while acep==0:
+        aux=-1;
+        while aux==-1:
+            aux=int(input("Dame el Segundo SOURCE REGISTER RT (DIRECCION MAXIMO 31): "));
+            if(aux>31 or aux<0):
+                aux=-1;
+                print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
+        rt=str(tobinary(aux));
+        rt=rt.zfill(5);
+        print("¿Este codigo es correcto?: "+rt);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+    acep=0;
+    inme="";
+    while acep==0:
+        inme=str(input("Dame el codigo INMEDIATO/DESPLAZAMIENTO (16 DIGITOS): "));
+        inme=inme[:16];
+        inme=inme.zfill(16);
+        print("¿Este codigo es correcto?: "+inme);
+        print("Y/N");
+        while True:
+            aux2=str(msvcrt.getch());  
+            if(aux2=="b'y'" or aux2=="b'Y'"):
+                acep=1;
+                break;
+            elif(aux2=="b'n'" or aux2=="b'N'"):
+                break;
+    regresar=str(special+rs+rt+inme+" ");
+    print("AGREGADO CON EXITO!\n");
+    return regresar;
 
 def tobinary(n):
     return bin(n).replace("0b", "");  
