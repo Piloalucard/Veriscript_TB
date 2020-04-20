@@ -23,19 +23,19 @@ def crear():
     car=0;
     archivo=open(nombre,mode="w",encoding="utf-8");
     print("-PRESIONE 1 PARA AGREGAR UNA INSTRUCCION-");
-    print("-PRESIONE 2 PARA SALIR-");
+    print("-PRESIONE 2 PARA GUARDAR Y SALIR-");
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
             
             if(car==1):
-                print("-PRESIONE 1 PARA AGREGAR UNA INSTRUCCION-");
-                print("-PRESIONE 2 PARA SALIR-\n");
+                print("\n-PRESIONE 1 PARA AGREGAR UNA INSTRUCCION-");
+                print("-PRESIONE 2 PARA GUARDAR Y SALIR-\n");
             aux=str(msvcrt.getch());  
             if(aux=="b'1'"):
                 print("\n¿De que tipo sera la instruccion?");
                 print("PRESIONE 1 PARA TIPO (I)");
                 print("PRESIONE 2 PARA TIPO (R)");
                 print("PRESIONE 3 PARA TIPO (J)");
-
+                print("PRESIONE 4 PARA REGRESAR");
                 while True:
                     aux2=str(msvcrt.getch());  
                     if(aux2=="b'1'"):
@@ -49,6 +49,8 @@ def crear():
                     elif(aux2=="b'3'"):
                         linea=tipoj();
                         archivo.write(str(linea)+"\n");
+                        break;
+                    elif(aux2=="b'4'"):
                         break;
                 car=1;
             elif(aux=="b'2'"):
@@ -127,7 +129,7 @@ def tipor():
     while acep==0:
         aux=-1;
         while aux==-1:
-            aux=int(input("Dame el Primer SOURCE REGISTER RS (DIRECCION MAXIMO 31): "));
+            aux=int(input("Dame el Primer SOURCE REGISTER RS (DECIMAL MAXIMO 31): "));
             if(aux>31 or aux<0):
                 aux=-1;
                 print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
@@ -147,7 +149,7 @@ def tipor():
     while acep==0:
         aux=-1;
         while aux==-1:
-            aux=int(input("Dame el Segundo SOURCE REGISTER RT (DIRECCION MAXIMO 31): "));
+            aux=int(input("Dame el Segundo SOURCE REGISTER RT (DECIMAL MAXIMO 31): "));
             if(aux>31 or aux<0):
                 aux=-1;
                 print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
@@ -167,7 +169,7 @@ def tipor():
     while acep==0:
         aux=-1;
         while aux==-1:
-            aux=int(input("Dame el DESTINY REGISTER RD (DIRECCION MAXIMO 31): "));
+            aux=int(input("Dame el DESTINY REGISTER RD (DECIMAL MAXIMO 31): "));
             if(aux>31 or aux<0):
                 aux=-1;
                 print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
@@ -240,7 +242,7 @@ def tipoi():
     while acep==0:
         aux=-1;
         while aux==-1:
-            aux=int(input("Dame el Primer SOURCE REGISTER RS (DIRECCION MAXIMO 31): "));
+            aux=int(input("Dame el Primer SOURCE REGISTER RS (DECIMAL MAXIMO 31): "));
             if(aux>31 or aux<0):
                 aux=-1;
                 print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
@@ -260,7 +262,7 @@ def tipoi():
     while acep==0:
         aux=-1;
         while aux==-1:
-            aux=int(input("Dame el Segundo SOURCE REGISTER RT (DIRECCION MAXIMO 31): "));
+            aux=int(input("Dame el Segundo SOURCE REGISTER RT (DECIMAL MAXIMO 31): "));
             if(aux>31 or aux<0):
                 aux=-1;
                 print("INGRESA DIRECCION MAYOR O IGUAL A O, O MENOR A 32");
