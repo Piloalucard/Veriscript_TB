@@ -102,7 +102,17 @@ def tipoj():
                 break;
             elif(aux2=="b'n'" or aux2=="b'N'"):
                 break;
-    regresar=str(special+jump+" ");
+    comen="";
+    print("¿Quiere agregar comentario?");
+    print("Y/N");
+    while True:
+        aux2=str(msvcrt.getch());  
+        if(aux2=="b'y'" or aux2=="b'Y'"):
+            comen="//"+str(input("Agregalo: //"));
+            break;
+        elif(aux2=="b'n'" or aux2=="b'N'"):
+            break;
+    regresar=str(special+jump+" "+comen);
     print("AGREGADO CON EXITO!\n");
     return regresar;
     
@@ -214,7 +224,17 @@ def tipor():
                 break;
             elif(aux2=="b'n'" or aux2=="b'N'"):
                 break;
-    regresar=str(special+rs+rt+rd+sham+fun+" ");
+    comen="";
+    print("¿Quiere agregar comentario?");
+    print("Y/N");
+    while True:
+        aux2=str(msvcrt.getch());  
+        if(aux2=="b'y'" or aux2=="b'Y'"):
+            comen="//"+str(input("Agregalo: //"));
+            break;
+        elif(aux2=="b'n'" or aux2=="b'N'"):
+            break;
+    regresar=str(special+rs+rt+rd+sham+fun+" "+comen);
     print("AGREGADO CON EXITO!\n");
     return regresar;
     
@@ -292,7 +312,17 @@ def tipoi():
                 break;
             elif(aux2=="b'n'" or aux2=="b'N'"):
                 break;
-    regresar=str(special+rs+rt+inme+" ");
+    comen="";
+    print("¿Quiere agregar comentario?");
+    print("Y/N");
+    while True:
+        aux2=str(msvcrt.getch());  
+        if(aux2=="b'y'" or aux2=="b'Y'"):
+            comen="//"+str(input("Agregalo: //"));
+            break;
+        elif(aux2=="b'n'" or aux2=="b'N'"):
+            break;
+    regresar=str(special+rs+rt+inme+" "+comen);
     print("AGREGADO CON EXITO!\n");
     return regresar;
 
