@@ -325,7 +325,7 @@ def escribir(nam_module,entradas,salidas):
         except:
             opc=0;
             print("ERROR,Debe ingresar un numero entero");
-    archivo.write("        $stop\n\n");
+    archivo.write("        $stop;\n\n");
     archivo.write("        end\n\n");
     archivo.write("endmodule");
     archivo.close();
