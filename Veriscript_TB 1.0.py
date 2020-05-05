@@ -162,7 +162,10 @@ def escribir(nam_module,entradas,salidas):
         if "0" in i:
             archivo.write("    reg ["+str(i)+";\n");
             cont=0;
-            a=int(i[0]);
+            try:
+                a=int(i[0:2]);
+            except:
+                a=int(i[0]);
             listaux=i.split("]");
             for j in listaux:   
                 if cont == 1:
@@ -312,7 +315,10 @@ def escribir(nam_module,entradas,salidas):
                                 if j > 1:
                                     j+=1;
                                 if cont == cont2:
-                                    bitaux=2**int(j);
+                                    if(j<=8):
+                                        bitaux=2**int(j);
+                                    else:
+                                        bitaux=2**int(j-1);
                                     bitaux=int(randrange(0,bitaux));
                                     archivo.write("        "+i+"="+str(j)+"'d"+str(bitaux)+";\n");
                               
